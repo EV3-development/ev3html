@@ -1,11 +1,11 @@
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect();
 socket.on('announcements', function(data) {
     console.log('Got announcement:', data.message);
 });
 
 $(window).keydown(function(event){
-    console.log('down');
-    socket.emit('event', {message:'forward'});
+    console.log('key pressed');
+    socket.emit('event', {message:event.keyCode});
 });
 $(window).keyup(function(event){
   console.log('up');
