@@ -3,6 +3,7 @@ var app = express();
 var server = require('http').Server(app);
 var bodyParser = require('body-parser');
 var ev3 = require('ev3dev-lang');
+var crypto = require('crypto');
 var io = require('socket.io')(server);
 
 app.use(express.static(__dirname + '/public'));
@@ -12,6 +13,7 @@ var port = 3000;
 var lock = false;
 var steeringLock = false;
 var lastKeyPressed = '';
+var hash = 'f799a317c044420605684c9ce1627fdb'
 var defaultSpeed = 1000;
 
 var leftMotorPort = ev3.OUTPUT_A;
@@ -45,14 +47,14 @@ app.get('/js/main.js', function(req, res){
 
 app.post('/login', function(req, res){
   console.log('post received');
-  if(req.body.pass == 'Oktopus'){
+  if(hash == crypto.createHash('md5').update(req.body.pass).digest('hex')){
     res.sendFile(__dirname + '/main.html');
   }
 });
 
 io.on('connection', function(socket) {
   var address = socket.request.connection;
-  console.log('Connection received from: ' + address.remoteAddress + ':' + address.remotePort);
+  console.log('Successful login received from: ' + address.remoteAddress + ':' + address.remotePort);
   socket.emit('announcements', { message: 'A new user has joined!' });
   socket.on('event', function(data){
     if(data.message == forward && lock === false){
