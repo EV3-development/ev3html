@@ -8,6 +8,6 @@ $(window).keydown(function(event){
     socket.emit('event', {message:event.keyCode});
 });
 $(window).keyup(function(event){
-  console.log('up');
-  socket.emit('event', {message:'keyup'});
+  console.log(event.which);
+  socket.emit('event', {message:'keyup', key:event.which});
 });

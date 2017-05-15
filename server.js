@@ -7,7 +7,8 @@ var server = require('http').Server(app);
 var port = 3000;
 app.use(express.static(__dirname + '/public'));
 lock = false;
-
+var lastKeyPressed = ''
+var forward = '87'
 var io = require('socket.io')(server)/*.listen(app.listen(port, function(){
   console.log('Listening on port: ' + port);
 }));*/
@@ -30,10 +31,11 @@ io.on('connection', function(socket) {
   socket.emit('announcements', { message: 'A new user has joined!' });
 
   socket.on('event', function(data){
-    if(data.message == '87' && lock === false){
+    if(data.message == forward && lock === false){
       console.log('drive forward');
       lock = true;
-    }else if (data.message == 'keyup'){
+      lastKeyPressed = forward;
+    }else if (data.message == 'keyup' && lastKeyPressed == data.key){
       console.log('stop driving');
       lock = false;
     }
