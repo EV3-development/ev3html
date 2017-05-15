@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/EV3-development/ev3html#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "ev3dev-lang": "^1.0.0",
     "express": "^4.15.2",
     "socket.io": "^1.7.4"
   }
