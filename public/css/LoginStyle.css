@@ -10,9 +10,17 @@ body {
   border-radius: 7px;
 }
 
-#password_bar :focus {
+#password_bar:focus {
   outline: none;
   border-color: #9ecaed;
   box-shadow: 0 0 10px #9ecaed;
 
+}
+#submit_buttom {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 20px;
+  padding: 5px;
+  background-color: 'blue';
 }
