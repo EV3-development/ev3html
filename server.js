@@ -48,9 +48,12 @@ app.get('/js/lib/jquery-3.2.1.min.js', function(req, res){
 app.get('/js/main.js', function(req, res){
   res.sendFile('/js/main.js');
 });
-app.get('/css/style.css', function(req, res){
-  res.sendFile('/css/style.css');
-})
+app.get('/css/MainStyle.css', function(req, res){
+  res.sendFile('/css/MainStyle.css');
+});
+app.get('/css/LoginStyle.css', function(req, res){
+  res.sendFile('/css/LoginStyle.css');
+});
 
 app.post('/login', function(req, res){
   console.log('post received');
