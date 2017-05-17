@@ -48,6 +48,9 @@ app.get('/js/lib/jquery-3.2.1.min.js', function(req, res){
 app.get('/js/main.js', function(req, res){
   res.sendFile('/js/main.js');
 });
+app.get('/css/style.css', function(req, res){
+  res.sendFile('/css/style.css');
+})
 
 app.post('/login', function(req, res){
   console.log('post received');
