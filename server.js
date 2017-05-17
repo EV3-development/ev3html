@@ -5,16 +5,20 @@ var bodyParser = require('body-parser');
 var ev3 = require('ev3dev-lang');
 var crypto = require('crypto');
 var io = require('socket.io')(server);
-
+var async = require('async');
+//leuchtende buttons
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var port = 3000;
+var port = 6985;
 var lock = false;
 var steeringLock = false;
 var lastKeyPressed = '';
+var lastSteeringPressed = '';
 var hash = 'f799a317c044420605684c9ce1627fdb'
 var defaultSpeed = 1000;
+var count = 1;
+var rotation = 0;
 
 var leftMotorPort = ev3.OUTPUT_A;
 var rightMotorPort = ev3.OUTPUT_B;
@@ -52,6 +56,24 @@ app.post('/login', function(req, res){
   }
 });
 
+var increment = function(cb){
+  async.whilst(function(){return steeringLock===true;},
+    function(callback){
+      count++
+      if(rotation < 100){
+        rotation = rotation + 10;
+      }
+      //console.log('increment called')
+      cb(rotation);
+      setTimeout(callback, count * 250)
+    },
+    function(err){
+      count = 1;
+      rotation = 0;
+    }
+  )
+};
+
 io.on('connection', function(socket) {
   var address = socket.request.connection;
   console.log('Successful login received from: ' + address.remoteAddress + ':' + address.remotePort);
@@ -60,20 +82,33 @@ io.on('connection', function(socket) {
     if(data.message == forward && lock === false){
       console.log('drive forward');
       lastKeyPressed = forward;
-      leftMotor.runForever(defaultSpeed);
-      rightMotor.runForever(defaultSpeed);
+      //leftMotor.runForever(defaultSpeed);
+      //rightMotor.runForever(defaultSpeed);
       lock = true;
     }else if (data.message == backwards && lock === false) {
       console.log('drive backwards');
       lastKeyPressed = backwards;
-      leftMotor.runForever(-defaultSpeed);
-      rightMotor.runForever(-defaultSpeed);
+      //leftMotor.runForever(-defaultSpeed);
+      //rightMotor.runForever(-defaultSpeed);
       lock = true;
     }else if (data.message == 'keyup' && lastKeyPressed == data.key){
       console.log('stop driving');
-      leftMotor.stop();
-      rightMotor.stop();
+      //leftMotor.stop();
+      //rightMotor.stop();
       lock = false;
+    }else if (data.message == left && steeringLock === false) {
+      console.log('turn left');
+      lastSteeringPressed = data.message;
+      steeringLock = true;
+      console.log(increment(function(id){console.log(id)}));
+    }else if (data.message == right && steeringLock === false) {
+      console.log('turn right');
+      lastSteeringPressed = data.message;
+      steeringLock = true;
+      console.log(increment(function(id){console.log(id)}));
+    }else if (data.message == 'steeringUp' && lastSteeringPressed == data.key) {
+      console.log('stop steering');
+      steeringLock = false;
     }
   })
 });
