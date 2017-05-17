@@ -1,0 +1,3 @@
+-Leuchtende Knoepfe die WASD input anzeigen
+-Animierte Balken die Geschwindigkeit anzeigen
+-Konsole
