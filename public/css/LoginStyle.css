@@ -5,5 +5,14 @@ body {
 
 #password_bar {
   color: #90C1D1;
+  border-style: none;
+  border 2px solid #D6D6D6;
+  border-radius: 7px;
+}
+
+#password_bar :focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 
 }
