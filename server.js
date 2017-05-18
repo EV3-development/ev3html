@@ -89,19 +89,19 @@ io.on('connection', function(socket) {
     if(data.message == forward && lock === false){
       console.log('drive forward');
       lastKeyPressed = forward;
-      //leftMotor.runForever(defaultSpeed);
-      //rightMotor.runForever(defaultSpeed);
+      leftMotor.runForever(defaultSpeed);
+      rightMotor.runForever(defaultSpeed);
       lock = true;
     }else if (data.message == backwards && lock === false) {
       console.log('drive backwards');
       lastKeyPressed = backwards;
-      //leftMotor.runForever(-defaultSpeed);
-      //rightMotor.runForever(-defaultSpeed);
+      leftMotor.runForever(-defaultSpeed);
+      rightMotor.runForever(-defaultSpeed);
       lock = true;
     }else if (data.message == 'keyup' && lastKeyPressed == data.key){
       console.log('stop driving');
-      //leftMotor.stop();
-      //rightMotor.stop();
+      leftMotor.stop();
+      rightMotor.stop();
       lock = false;
     }else if (data.message == left && steeringLock === false) {
       console.log('turn left');
