@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var port = 6985;
 var lock = false;
 var steeringLock = false;
+var shift = false;
 var lastKeyPressed = '';
 var lastSteeringPressed = '';
 var hash = 'f799a317c044420605684c9ce1627fdb'

@@ -1,3 +1,4 @@
 -Leuchtende Knoepfe die WASD input anzeigen
 -Animierte Balken die Geschwindigkeit anzeigen
 -Konsole
+-execute -chmod -x ./server.js through ssh on ev3
