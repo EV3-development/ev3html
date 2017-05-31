@@ -105,13 +105,13 @@ io.on('connection', function(socket) {
       lock = false;
     }else if (data.message == left && steeringLock === false) {
       console.log('turn left');
-      rotationMotor.runToPosition(-25);
+      rotationMotor.runAbsoluteToPosition(-25);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == right && steeringLock === false) {
       console.log('turn right');
-      rotationMotor.runToPosition(25);
+      rotationMotor.runAbsoluteToPosition(25);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
