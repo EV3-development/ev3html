@@ -22,8 +22,8 @@ var count = 1;
 var rotation = 0;
 
 var leftMotorPort = ev3.OUTPUT_A;
-var rightMotorPort = ev3.OUTPUT_B;
-var rotationMotorPort = ev3.OUTPUT_C;
+var rightMotorPort = ev3.OUTPUT_C;
+var rotationMotorPort = ev3.OUTPUT_B;
 
 var leftMotor = new ev3.LargeMotor(leftMotorPort);
 var rightMotor = new ev3.LargeMotor(rightMotorPort);
@@ -105,16 +105,19 @@ io.on('connection', function(socket) {
       lock = false;
     }else if (data.message == left && steeringLock === false) {
       console.log('turn left');
+      rotationMotor.runToPosition(-25);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == right && steeringLock === false) {
       console.log('turn right');
+      rotationMotor.runToPosition(25);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == 'steeringUp' && lastSteeringPressed == data.key) {
       console.log('stop steering');
+      rotationMotor.runToPosition(0);
       steeringLock = false;
     }
   })
