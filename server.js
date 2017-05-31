@@ -111,13 +111,13 @@ io.on('connection', function(socket) {
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == right && steeringLock === false) {
       console.log('turn right');
-      rotationMotor.runAbsoluteToPosition(25);
+      rotationMotor.runForever(20);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == 'steeringUp' && lastSteeringPressed == data.key) {
       console.log('stop steering');
-      rotationMotor.runToPosition(0);
+      rotationMotor.stop(0);
       steeringLock = false;
     }
   })
