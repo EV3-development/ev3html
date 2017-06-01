@@ -34,6 +34,7 @@ var forward = '87';
 var backwards = '83';
 var left = '65';
 var right = '68';
+var shift = '16';
 
 server.listen(port, function(){
   console.log('Listening on port: ' + port);
@@ -99,6 +100,14 @@ io.on('connection', function(socket) {
       leftMotor.runForever(defaultSpeed);
       rightMotor.runForever(defaultSpeed);
       lock = true;
+    }else if (data.message == shift && shiftLock == false) {
+      defaultSpeed = 2000;
+      lock = false;
+      shiftLock = true;
+    }else if (data.message == 'shiftUp') {
+      defaultSpeed = 1000;
+      lock = false;
+      shiftLock = false;
     }else if (data.message == 'keyup' && lastKeyPressed == data.key){
       console.log('stop driving');
       leftMotor.stop();
@@ -107,13 +116,13 @@ io.on('connection', function(socket) {
     }else if (data.message == left && steeringLock === false) {
       console.log('turn left');
       //rotationMotor.runToPosition(-defaultRotationPos);
-      rotationMotor.runForever(-200);
+      rotationMotor.runForever(200);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == right && steeringLock === false) {
       console.log('turn right');
-      rotationMotor.runForever(200);
+      rotationMotor.runForever(-200);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));

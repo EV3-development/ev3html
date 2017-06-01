@@ -10,6 +10,8 @@ $(window).keydown(function(event){
 $(window).keyup(function(event){
   if(event.which == 65 || event.which == 68){
     socket.emit('event', {message:'steeringUp', key:event.which});
+  }else if (event.which == 16) {
+    socket.emit('event', {message:'shiftUp'});
   };
   console.log(event.which);
   socket.emit('event', {message:'keyup', key:event.which});
