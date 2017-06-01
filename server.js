@@ -101,7 +101,7 @@ io.on('connection', function(socket) {
       rightMotor.runForever(defaultSpeed);
       lock = true;
     }else if (data.message == shift && shiftLock == false) {
-      defaultSpeed = 2000;
+      defaultSpeed = 1500;
       lock = false;
       shiftLock = true;
     }else if (data.message == 'shiftUp') {
