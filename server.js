@@ -106,19 +106,20 @@ io.on('connection', function(socket) {
       lock = false;
     }else if (data.message == left && steeringLock === false) {
       console.log('turn left');
-      rotationMotor.runToPosition(-defaultRotationPos);
+      //rotationMotor.runToPosition(-defaultRotationPos);
+      rotationMotor.runForever(200);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == right && steeringLock === false) {
       console.log('turn right');
-      rotationMotor.runForever(20);
+      rotationMotor.runForever(200);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == 'steeringUp' && lastSteeringPressed == data.key) {
       console.log('stop steering');
-      rotationMotor.runToPosition(0);
+      //rotationMotor.runToPosition(0);
       rotationMotor.stop(0);
       steeringLock = false;
     }
