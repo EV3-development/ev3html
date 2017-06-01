@@ -106,7 +106,7 @@ io.on('connection', function(socket) {
       lock = false;
     }else if (data.message == left && steeringLock === false) {
       console.log('turn left');
-      rotationMotor.runToPosition(-defaultRotationPos, 200);
+      rotationMotor.runToPosition(-defaultRotationPos);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
@@ -118,7 +118,7 @@ io.on('connection', function(socket) {
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == 'steeringUp' && lastSteeringPressed == data.key) {
       console.log('stop steering');
-      rotationMotor.runToPosition(0, 200);
+      rotationMotor.runToPosition(0);
       rotationMotor.stop(0);
       steeringLock = false;
     }
