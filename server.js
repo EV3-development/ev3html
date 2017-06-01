@@ -18,6 +18,7 @@ var lastKeyPressed = '';
 var lastSteeringPressed = '';
 var hash = '33104191484a4d9d06bb2c11db5b2c6b'
 var defaultSpeed = 1000;
+var defaultRotationPos = (0.5);
 var count = 1;
 var rotation = 0;
 
@@ -105,7 +106,7 @@ io.on('connection', function(socket) {
       lock = false;
     }else if (data.message == left && steeringLock === false) {
       console.log('turn left');
-      rotationMotor.runToPosition(-25, 200);
+      rotationMotor.runToPosition(-defaultRotationPos, 200);
       lastSteeringPressed = data.message;
       steeringLock = true;
       console.log(increment(function(id){console.log(id)}));
@@ -117,7 +118,7 @@ io.on('connection', function(socket) {
       console.log(increment(function(id){console.log(id)}));
     }else if (data.message == 'steeringUp' && lastSteeringPressed == data.key) {
       console.log('stop steering');
-      rotationMotor.runToPosition(0, 200)
+      rotationMotor.runToPosition(0, 200);
       rotationMotor.stop(0);
       steeringLock = false;
     }
